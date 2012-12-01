@@ -49,6 +49,11 @@ public class Run
 			au.addObserver(vista);
 			t1=new Thread(au);
 			t1.start();
+			
+			vista.setVisible(true);
+			
+			
+			modelo.addObserver(vista);
 		} 
 		catch (UnknownHostException e) 
 		{
@@ -59,20 +64,17 @@ public class Run
 			e.printStackTrace();
 		}
 
-		vista.setVisible(true);
-		
-		
-		modelo.addObserver(vista);
+
 		
 		//Controlador controlador = new Controlador(modelo,vista);
 		//controlador.setModelo(modelo);
 		//controlador.setVista(vista);
 		//controlador.initVal(0);
 		
-		Incrementar inc = new Incrementar(modelo,vista);
+		/*Incrementar inc = new Incrementar(modelo,vista);
 		Decrementar dec = new Decrementar(modelo,vista);
 		
 		vista.setControlador(inc,"Convidar");
-		vista.setControlador(dec,"Decrementar");
+		vista.setControlador(dec,"Decrementar");*/
 	}
 }
