@@ -21,9 +21,11 @@ public class Run
 		Thread t1,t2;
 		BufferedReader in;
 		PrintWriter out = null;
+		ActualizarUsers au;
 		
 		try 
 		{
+			
 			s=new Socket("127.0.0.1",5002);
 			in=new BufferedReader(new InputStreamReader(s.getInputStream()));
 			out=new PrintWriter(s.getOutputStream());
@@ -43,7 +45,9 @@ public class Run
 		
 			
 			System.out.println("Vou mostrar a janela");
-			t1=new Thread(new ActualizarUsers(modelo,s));
+			au=new ActualizarUsers(modelo,s);
+			au.addObserver(vista);
+			t1=new Thread(au);
 			t1.start();
 		} 
 		catch (UnknownHostException e) 

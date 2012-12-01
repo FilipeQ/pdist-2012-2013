@@ -21,20 +21,15 @@ public class ActualizarUsers extends Observable implements Runnable
 	@Override
 	public void run() 
 	{
-		try 
-		{
-			oin=new ObjectInputStream(s.getInputStream());
-		} 
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		}
+
 		while(true)
 		{
 			try 
 			{
+				oin=new ObjectInputStream(s.getInputStream());
 				//usersActivos=(List<String>)oin.readObject();
 				d=(Dados)oin.readObject();
+				System.out.println("Cliente"+d.getUsersActivos().get(0));
 				
 				if(d.getUsersActivos().size()!=modelo.getD().getUsersActivos().size())
 				{
