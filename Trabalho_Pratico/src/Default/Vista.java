@@ -114,8 +114,17 @@ public class Vista extends JFrame implements Observer
 	{
 		// TODO Auto-generated method stub
 		//tb.setText("" + modelo.getContador());
-		System.out.println(((Integer)arg1).intValue());
-		tbUsersActivos.setText("" + ((Integer)arg1).intValue());
+		//System.out.println(((Integer)arg1).intValue());
+		//tbUsersActivos.setText("" + ((Integer)arg1).intValue());
+		
+		Dados d=(Dados)arg1;
+		String texto="";
+		for(int i=0;i<d.getUsersActivos().size();i++)
+		{
+			texto=""+d.getUsersActivos().get(i).toString()+"\n";
+			
+		}
+		tbUsersActivos.setText(""+texto);
 		
 	}
 
