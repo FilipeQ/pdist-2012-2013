@@ -17,7 +17,8 @@ public class Run
 		Modelo modelo 	= new Modelo();
 		Vista vista 	= new Vista();
 		String login;
-		Socket s;
+		Socket s=null;
+		Thread t1,t2;
 		BufferedReader in;
 		PrintWriter out = null;
 		
@@ -40,6 +41,10 @@ public class Run
 				
 			}while(login.equalsIgnoreCase("Nok"));
 		
+			
+			System.out.println("Vou mostrar a janela");
+			t1=new Thread(new ActualizarUsers(modelo,s));
+			t1.start();
 		} 
 		catch (UnknownHostException e) 
 		{
@@ -49,7 +54,7 @@ public class Run
 		{
 			e.printStackTrace();
 		}
-		System.out.println("Vou mostrar a janela");
+
 		vista.setVisible(true);
 		
 		
