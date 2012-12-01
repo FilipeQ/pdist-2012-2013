@@ -36,6 +36,7 @@ public class Run
 				out.flush();
 				
 				login=in.readLine();
+				System.out.println("resposta:"+login);
 				
 			}while(login.equalsIgnoreCase("Nok"));
 		
@@ -48,7 +49,7 @@ public class Run
 		{
 			e.printStackTrace();
 		}
-		
+		System.out.println("Vou mostrar a janela");
 		vista.setVisible(true);
 		
 		
