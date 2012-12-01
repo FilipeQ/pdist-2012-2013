@@ -9,6 +9,6 @@ public class Main
 	{
 		Run n=new Run();
 		//UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-		UIManager.getCrossPlatformLookAndFeelClassName();
+		//UIManager.getCrossPlatformLookAndFeelClassName();
 	}
 }

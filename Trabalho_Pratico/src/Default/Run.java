@@ -1,12 +1,54 @@
 package Default;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
+import java.net.UnknownHostException;
+
+import javax.swing.JOptionPane;
+
 
 public class Run 
 {
-	public Run()
+	public Run() 
 	{
 		Modelo modelo 	= new Modelo();
 		Vista vista 	= new Vista();
+		String login;
+		Socket s;
+		BufferedReader in;
+		PrintWriter out = null;
+		
+		try 
+		{
+			s=new Socket("127.0.0.1",5002);
+			in=new BufferedReader(new InputStreamReader(s.getInputStream()));
+			out=new PrintWriter(s.getOutputStream());
+		
+			do
+			{
+				login=JOptionPane.showInputDialog("Intrdoduza o login :");
+				System.out.println(login);
+				
+				out.println(login);
+				out.flush();
+				
+				login=in.readLine();
+				
+			}while(login.equalsIgnoreCase("Nok"));
+		
+		} 
+		catch (UnknownHostException e) 
+		{
+			e.printStackTrace();
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+		
 		vista.setVisible(true);
 		
 		
