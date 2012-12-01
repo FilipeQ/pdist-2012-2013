@@ -12,12 +12,13 @@ import javax.swing.JOptionPane;
 
 public class Run 
 {
+	//static Socket s;
 	public Run() 
 	{
 		Modelo modelo 	= new Modelo();
 		Vista vista 	= new Vista();
 		String login;
-		Socket s=null;
+		Socket s;
 		Thread t1,t2;
 		BufferedReader in;
 		PrintWriter out = null;
@@ -47,6 +48,7 @@ public class Run
 			System.out.println("Vou mostrar a janela");
 			au=new ActualizarUsers(modelo,s);
 			au.addObserver(vista);
+			
 			t1=new Thread(au);
 			t1.start();
 			
