@@ -13,6 +13,8 @@ public class ActualizarUsers extends Observable implements Runnable
 	ObjectInputStream oin;
 	//List<String>usersActivos;
 	Dados d;
+	List<String>usersActivos=null;
+	List<String>paresActivos=null;
 	ActualizarUsers(Modelo modelo,Socket s,ObjectInputStream oin,Dados d)
 	{
 		this.modelo=modelo;
@@ -31,10 +33,14 @@ public class ActualizarUsers extends Observable implements Runnable
 		{
 			try 
 			{
-				//oin=new ObjectInputStream(s.getInputStream());
-				//usersActivos=(List<String>)oin.readObject();
+				oin=new ObjectInputStream(s.getInputStream());
+				paresActivos=(List<String>) oin.readObject();
+				usersActivos=(List<String>)oin.readObject();
 				
-				d=(Dados)oin.readObject();
+				
+				d.paresActivos=paresActivos;
+				d.usersActivos=usersActivos;
+				
 				System.out.println("Cliente"+d.getUsersActivos().get(0));
 				
 				if(d.getUsersActivos().size()!=modelo.getD().getUsersActivos().size())

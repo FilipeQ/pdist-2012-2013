@@ -64,7 +64,7 @@ public class Run
 			modelo.addObserver(vista);
 			
 			System.out.println("Vou mostrar a janela");
-			oin=new ObjectInputStream(s.getInputStream());
+			//oin=new ObjectInputStream(s.getInputStream());
 			System.out.println("S_1:"+s);
 			System.out.println("OIN_1:"+oin);
 			au=new ActualizarUsers(modelo,s,oin,d);
