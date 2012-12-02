@@ -13,22 +13,27 @@ public class ActualizarUsers extends Observable implements Runnable
 	ObjectInputStream oin;
 	//List<String>usersActivos;
 	Dados d;
-	ActualizarUsers(Modelo modelo,Socket s)
+	ActualizarUsers(Modelo modelo,Socket s,ObjectInputStream oin,Dados d)
 	{
 		this.modelo=modelo;
+		this.oin=oin;
+		this.d=d;
+		System.out.println("OIN_2:"+oin);
+		System.out.println("S_2:"+s);
 		this.s=s;
 	}
 	@Override
 	public void run() 
 	{
-
+		//d=new Dados();
 		
 		while(true)
 		{
 			try 
 			{
-				oin=new ObjectInputStream(s.getInputStream());
+				//oin=new ObjectInputStream(s.getInputStream());
 				//usersActivos=(List<String>)oin.readObject();
+				
 				d=(Dados)oin.readObject();
 				System.out.println("Cliente"+d.getUsersActivos().get(0));
 				
