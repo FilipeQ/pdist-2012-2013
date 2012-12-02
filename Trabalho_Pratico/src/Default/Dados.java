@@ -1,5 +1,4 @@
 package Default;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,10 +6,6 @@ import java.util.List;
 
 public class Dados implements Serializable
 {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	List<String>usersActivos;
 	List<String>paresActivos;
 	
@@ -43,5 +38,3 @@ public class Dados implements Serializable
 	
 	
 }
-
-
