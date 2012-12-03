@@ -15,68 +15,61 @@ import javax.swing.JOptionPane;
 public class Run 
 {
 	//static Socket s;
-	public Run() 
+	public Run() throws ClassNotFoundException 
 	{
+		Dados d = new Dados();
 		Modelo modelo 	= new Modelo();
 		Vista vista 	= new Vista();
-		String login;
+		String login,logAux;
 		Socket s;
 		Thread t1,t2;
-		BufferedReader in;
-		PrintWriter out = null;
+		//BufferedReader in;
+		//PrintWriter out = null;
+		ObjectOutputStream oout;
+		ObjectInputStream inn;
 		ActualizarUsers au;
-		ObjectInputStream oin=null;
-		ObjectOutputStream oout=null;
-		Dados d=new Dados();
-		
 		
 		try 
 		{
-			System.out.println("Prestes a ler o socket");
-			s=new Socket("127.0.0.1",5002);
-			System.out.println("Li o socket");
-			in=new BufferedReader(new InputStreamReader(s.getInputStream()));
-			//oin=new ObjectInputStream(s.getInputStream());
-			//oout=new ObjectOutputStream(s.getOutputStream());
-			out=new PrintWriter(s.getOutputStream());
-			System.out.println("Prestes a entrar");
+			
+			s=new Socket("127.0.0.1",5001);
+			//in=new BufferedReader(new InputStreamReader(s.getInputStream()));
+			//out=new PrintWriter(s.getOutputStream());
+			oout=new ObjectOutputStream(s.getOutputStream());
+			inn = new ObjectInputStream(s.getInputStream());
+			
 			do
 			{
-				System.out.println("Entrei");
 				login=JOptionPane.showInputDialog("Intrdoduza o login :");
+				logAux=login;
 				System.out.println(login);
 				
-				//oout.writeObject(login);
-				out.println(login);
-				out.flush();
-				//oout.flush();
-				/*try {
-					login=(String) oin.readObject();
-				} catch (ClassNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}*/
-				login=in.readLine();
-				System.out.println("resposta:"+login);
+				//out.println(login);
+				//out.flush();
+				d.setLogin(login);
+				System.out.println("nome:"+d.getLogin());
+				oout.writeObject(d.getLogin());
+				oout.flush();
+				
+				//login=in.readLine();
+				d.setLogin((String)inn.readObject());
+				login=d.getLogin();
+				System.out.println("resposta:"+d.getLogin());
 				
 			}while(login.equalsIgnoreCase("Nok"));
 		
-			modelo.addObserver(vista);
-			
+			d.setLogin(logAux);
 			System.out.println("Vou mostrar a janela");
-			//oin=new ObjectInputStream(s.getInputStream());
-			System.out.println("S_1:"+s);
-			System.out.println("OIN_1:"+oin);
-			au=new ActualizarUsers(modelo,s,oin,d);
+			au=new ActualizarUsers(modelo,s,d);
 			au.addObserver(vista);
-			
+			//au.run();
 			t1=new Thread(au);
 			t1.start();
 			
 			vista.setVisible(true);
 			
 			
-			
+			modelo.addObserver(vista);
 		} 
 		catch (UnknownHostException e) 
 		{
@@ -87,7 +80,7 @@ public class Run
 			e.printStackTrace();
 		}
 
-		
+
 		
 		//Controlador controlador = new Controlador(modelo,vista);
 		//controlador.setModelo(modelo);

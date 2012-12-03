@@ -1,4 +1,5 @@
 package Default;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,7 @@ public class Dados implements Serializable
 {
 	List<String>usersActivos;
 	List<String>paresActivos;
+	String login;
 	
 	public Dados()
 	{
@@ -35,6 +37,22 @@ public class Dados implements Serializable
 	public String toString() {
 		return "Dados [usersActivos=" + usersActivos + "]";
 	}
+
+	/**
+	 * @return the login
+	 */
+	public String getLogin() {
+		return login;
+	}
+
+	/**
+	 * @param login the login to set
+	 */
+	public void setLogin(String login) {
+		this.login = login;
+	}
 	
 	
 }
+
+

@@ -3,6 +3,7 @@ package Default;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Observable;
 
@@ -10,36 +11,41 @@ public class ActualizarUsers extends Observable implements Runnable
 {
 	Modelo modelo;
 	Socket s;
-	ObjectInputStream oin;
+	ObjectInputStream inn;
 	//List<String>usersActivos;
 	Dados d;
-	List<String>usersActivos=null;
-	List<String>paresActivos=null;
-	ActualizarUsers(Modelo modelo,Socket s,ObjectInputStream oin,Dados d)
+	ActualizarUsers(Modelo modelo,Socket s,Dados d) throws UnknownHostException, IOException
 	{
+		if(s==null)
+			System.out.println("erro está null");
+		
 		this.modelo=modelo;
-		this.oin=oin;
-		this.d=d;
-		System.out.println("OIN_2:"+oin);
-		System.out.println("S_2:"+s);
 		this.s=s;
+		this.d=d;
+		
+		System.out.println("socket servidor: "+s.getInetAddress()+" : "+s.getPort());
+		System.out.println("espera ...");
+		
 	}
+	
 	@Override
 	public void run() 
 	{
-		//d=new Dados();
 		
 		while(true)
 		{
 			try 
 			{
-				oin=new ObjectInputStream(s.getInputStream());
-				paresActivos=(List<String>) oin.readObject();
-				usersActivos=(List<String>)oin.readObject();
+				inn = new ObjectInputStream(s.getInputStream());
 				
+				System.out.println("espera cliente");
+				//usersActivos=(List<String>)oin.readObject();
+				//d=(Dados) oin.readObject();
+				List<String> paresActivos = (List<String>) inn.readObject();
+				d.setParesActivos(paresActivos);
+				List<String> usersActivos = (List<String>) inn.readObject();
+				d.setUsersActivos(usersActivos);
 				
-				d.paresActivos=paresActivos;
-				d.usersActivos=usersActivos;
 				
 				System.out.println("Cliente"+d.getUsersActivos().get(0));
 				
@@ -64,8 +70,10 @@ public class ActualizarUsers extends Observable implements Runnable
 				}
 			} catch (ClassNotFoundException e) 
 			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println("erro: "+e.getCause());
+				if(d==null)
+					System.out.println("Dados = a null gggg");
+				
 			} catch (IOException e) 
 			{
 				// TODO Auto-generated catch block
