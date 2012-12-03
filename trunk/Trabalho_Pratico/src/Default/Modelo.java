@@ -23,11 +23,7 @@ public class Modelo extends Observable implements Runnable
 	private String login;
 	private String logAux;
 	
-	public Modelo()
-	{
-		d=new Dados();
-		//contador=0;
-	}
+
 	
 	public Modelo(Socket s)
 	{
@@ -104,17 +100,9 @@ public class Modelo extends Observable implements Runnable
 		}
 	}
 	
-
-	public Dados getD() {
-		return d;
-	}
-
-	public void setD(Dados d) {
-		this.d = d;
-	}
-
 	@Override
-	public void run() {
+	public void run() 
+	{
 		while(true)
 		{
 			
@@ -148,5 +136,94 @@ public class Modelo extends Observable implements Runnable
 		}
 		
 	}
+
+	//--------------Getters & Setters----------------
+	
+	public Dados getDd() 
+	{
+		return dd;
+	}
+
+	public void setDd(Dados dd) 
+	{
+		this.dd = dd;
+	}
+
+	public ObjectOutputStream getOout() 
+	{
+		return oout;
+	}
+
+	public void setOout(ObjectOutputStream oout) 
+	{
+		this.oout = oout;
+	}
+
+	public ObjectInputStream getInn() 
+	{
+		return inn;
+	}
+
+	public void setInn(ObjectInputStream inn) 
+	{
+		this.inn = inn;
+	}
+
+	public Socket getS() 
+	{
+		return s;
+	}
+
+	public void setS(Socket s) 
+	{
+		this.s = s;
+	}
+
+	public String getLogin() 
+	{
+		return login;
+	}
+
+	public void setLogin(String login) 
+	{
+		this.login = login;
+	}
+
+	public String getLogAux() 
+	{
+		return logAux;
+	}
+
+	public void setLogAux(String logAux) 
+	{
+		this.logAux = logAux;
+	}
+
+	public String getMSG_TIPO_1() 
+	{
+		return MSG_TIPO_1;
+	}
+
+	public String getMSG_TIPO_2() 
+	{
+		return MSG_TIPO_2;
+	}
+
+	public String getMSG_TIPO_3() 
+	{
+		return MSG_TIPO_3;
+	}
+
+	public Dados getD() 
+	{
+		return d;
+	}
+
+	public void setD(Dados d) 
+	{
+		this.d = d;
+	}
+
+	
 
 }
