@@ -10,7 +10,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 import javax.swing.JOptionPane;
-
+import Servidor.Dados;
 
 public class Run 
 {
