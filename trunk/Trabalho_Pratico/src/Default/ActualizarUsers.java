@@ -7,6 +7,7 @@ import java.net.UnknownHostException;
 import java.util.List;
 import java.util.Observable;
 
+import Servidor.Dados;
 public class ActualizarUsers extends Observable implements Runnable
 {
 	Modelo modelo;
@@ -40,11 +41,11 @@ public class ActualizarUsers extends Observable implements Runnable
 				
 				System.out.println("espera cliente");
 				//usersActivos=(List<String>)oin.readObject();
-				//d=(Dados) oin.readObject();
-				List<String> paresActivos = (List<String>) inn.readObject();
+				d=(Dados) inn.readObject();
+				/*List<String> paresActivos = (List<String>) inn.readObject();
 				d.setParesActivos(paresActivos);
 				List<String> usersActivos = (List<String>) inn.readObject();
-				d.setUsersActivos(usersActivos);
+				d.setUsersActivos(usersActivos);*/
 				
 				
 				System.out.println("Cliente"+d.getUsersActivos().get(0));

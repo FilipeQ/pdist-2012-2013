@@ -18,6 +18,7 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
+import Servidor.Dados;
 public class Vista extends JFrame implements Observer
 {
 	/**

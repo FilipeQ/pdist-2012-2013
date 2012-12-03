@@ -3,7 +3,7 @@ package Default;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observable;
-
+import Servidor.Dados;
 public class Modelo extends Observable
 {
 	private int contador;
