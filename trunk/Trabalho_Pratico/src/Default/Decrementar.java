@@ -12,9 +12,9 @@ public class Decrementar extends Controlador
 	public void actionPerformed(ActionEvent e) 
 	{
 		// TODO Auto-generated method stub
-		System.out.println("Controller: acting on Model"+modelo.getContador());
+		//System.out.println("Controller: acting on Model"+modelo.getContador());
 		//System.out.println();
-		modelo.decrementarValor();
+		//modelo.decrementarValor();
 		
 	}
 
