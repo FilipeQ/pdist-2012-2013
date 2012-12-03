@@ -14,6 +14,7 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 
@@ -23,7 +24,8 @@ public class Vista extends JFrame implements Observer
 	 * 
 	 */
 	//Controlador controlador;
-	JTextField tbUsersActivos,tbParesActivos,tbConvidar;
+	JTextField tbParesActivos,tbConvidar;
+	JTextArea tbUsersActivos;
 	List<JButton> bt;
 	Container c;
 	Modelo modelo;
@@ -53,7 +55,7 @@ public class Vista extends JFrame implements Observer
 			
 		}
 		
-		tbUsersActivos = new JTextField("0");
+		tbUsersActivos = new JTextArea("0");
 		tbConvidar = new JTextField("");
 		tbParesActivos=new JTextField("fdgdfgdshs");
 		bt=new ArrayList<>();
@@ -62,6 +64,7 @@ public class Vista extends JFrame implements Observer
 		tbUsersActivos.setPreferredSize(new Dimension(250,100));
 		tbUsersActivos.setMaximumSize(new Dimension(250,100));
 		tbUsersActivos.setMinimumSize(new Dimension(250,100));
+		
 		
 		tbParesActivos.setPreferredSize(new Dimension(250,100));
 		tbParesActivos.setMaximumSize(new Dimension(250,100));
@@ -121,7 +124,9 @@ public class Vista extends JFrame implements Observer
 		String texto="";
 		for(int i=0;i<d.getUsersActivos().size();i++)
 		{
-			texto=""+d.getUsersActivos().get(i).toString()+"\n";
+			System.out.println("userActivos: "+d.getUsersActivos().get(i).toString());
+			if(!d.getLogin().equalsIgnoreCase(d.getUsersActivos().get(i).toString()))
+				texto+=""+d.getUsersActivos().get(i).toString()+"\n";
 			
 		}
 		tbUsersActivos.setText(""+texto);
