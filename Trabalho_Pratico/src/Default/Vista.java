@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 
 import Servidor.Dados;
+
 public class Vista extends JFrame implements Observer
 {
 	/**
@@ -83,10 +84,6 @@ public class Vista extends JFrame implements Observer
 		tbConvidar.setMaximumSize(new Dimension(400,30));
 		tbConvidar.setMinimumSize(new Dimension(400,30));
 		
-		/*bt.add(new JButton("Decrementar"));
-		bt.get(1).setPreferredSize(new Dimension(100,100));
-		bt.get(1).setMaximumSize(new Dimension(100,100));
-		bt.get(1).setMinimumSize(new Dimension(100,100));*/
 		
 		c.setLayout( new BorderLayout());
 		//pLateral.setLayout( new FlowLayout());
@@ -123,11 +120,13 @@ public class Vista extends JFrame implements Observer
 		
 		Dados d=(Dados)arg1;
 		String texto="";
+		System.out.println("Tamanho:"+d.getUsersActivos().size());
 		for(int i=0;i<d.getUsersActivos().size();i++)
 		{
-			System.out.println("userActivos: "+d.getUsersActivos().get(i).toString());
-			if(!d.getLogin().equalsIgnoreCase(d.getUsersActivos().get(i).toString()))
+			//System.out.println("userActivos: "+d.getUsersActivos().get(i).toString());
+			//if(!d.getLogin().equalsIgnoreCase(d.getUsersActivos().get(i).toString()))
 				texto+=""+d.getUsersActivos().get(i).toString()+"\n";
+				System.out.println("Texto:"+texto);
 			
 		}
 		tbUsersActivos.setText(""+texto);
@@ -149,3 +148,4 @@ public class Vista extends JFrame implements Observer
 
 	
 }
+

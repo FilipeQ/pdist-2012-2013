@@ -41,11 +41,5 @@ public class Controlador implements ActionListener
 		
 	}
 	
-	public void initVal(int x)
-	{
-		//modelo.setContador(x);
-	}
 
 }
-
-
