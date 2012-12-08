@@ -9,13 +9,11 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
-import javax.swing.JOptionPane;
-import Servidor.Dados;
 
 public class Run 
 {
 	//static Socket s;
-	public Run() throws ClassNotFoundException 
+	public Run()
 	{
 		Modelo modelo;
 		Vista vista;
@@ -27,20 +25,14 @@ public class Run
 			
 			s=new Socket("127.0.0.1",5001);
 			vista=new Vista();
-			modelo=new Modelo(s);
+			modelo=new Modelo(s,vista);
 			modelo.addObserver(vista);
 			t1=new Thread(modelo);
 			t1.start();
-			vista.setVisible(true);
+			//vista.setVisible(true);
 		} 
-		catch (UnknownHostException e) 
-		{
-			e.printStackTrace();
-		} 
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		}
+		catch (UnknownHostException e){System.out.println(e);} 
+		catch (IOException e){System.out.println(e);}
 
 
 		
@@ -56,3 +48,4 @@ public class Run
 		vista.setControlador(dec,"Decrementar");*/
 	}
 }
+
