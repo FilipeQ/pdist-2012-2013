@@ -30,6 +30,8 @@ public class Run
 			t1=new Thread(modelo);
 			t1.start();
 			//vista.setVisible(true);
+			Convidar con =new Convidar(modelo,vista);
+			vista.setControlador(con, "Convidar");
 		} 
 		catch (UnknownHostException e){System.out.println(e);} 
 		catch (IOException e){System.out.println(e);}

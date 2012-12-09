@@ -15,12 +15,14 @@ public class Modelo extends Observable implements Runnable
 	final String MSG_TIPO_1="ActUsersActivos";
 	final String MSG_TIPO_2="ActParesActivos";
 	final String MSG_TIPO_3="Jogar";
+	final String MSG_TIPO_4="Convidar";
 	
 	private Dados dadosCliente,dadosServidor;
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
 	private String user;
 	private String login;
+	private String mensagem;
 	
 	private Vista vista;
 	
@@ -59,25 +61,151 @@ public class Modelo extends Observable implements Runnable
 	public void run() 
 	{
 		efectuarLogin();
+		vista.setTitle(user);
 		vista.setVisible(true);
+		
 		System.out.println("Vou entrar no while");
 		try 
 		{
 			while(true)
 			{
-					dadosCliente=(Dados)in.readObject();
-					System.out.println("Vou actualizar os users");
-					System.out.println(dadosCliente);
-					if(dadosCliente.getMensagem().equalsIgnoreCase(MSG_TIPO_1));
+					mensagem=(String)in.readObject();
+					
+					
+					if(mensagem.equals(MSG_TIPO_1))
 					{
+						dadosCliente=(Dados)in.readObject();
+						System.out.println(dadosCliente);
 						setChanged();
 						notifyObservers(dadosCliente);
+						continue;
 					}
+					else
+					{
+						System.out.println("Vou mostrar JOptionpane");
+						int resposta;
+						mensagem=(String)in.readObject();
+						resposta=JOptionPane.showConfirmDialog(vista, "Deseja jogar com "+mensagem+"?");
+						System.out.println("Resposta:"+resposta);
+						
+						//mensagem=""+resposta;
+						mensagem=new String(""+resposta);
+						System.out.println("Mensagem Resp:"+mensagem);
+						out.writeObject(mensagem);
+						out.flush();
+						out.reset();
+					}
+
+					
 			}
 		}
 		catch (ClassNotFoundException e) {System.out.println(e);}
 		catch (IOException e) {System.out.println(e);}
 		
 	}
+
+	
+	//----------------Getters and Setters------------------
+
+	public Dados getDadosCliente() {
+		return dadosCliente;
+	}
+
+
+	public void setDadosCliente(Dados dadosCliente) {
+		this.dadosCliente = dadosCliente;
+	}
+
+
+	public Dados getDadosServidor() {
+		return dadosServidor;
+	}
+
+
+	public void setDadosServidor(Dados dadosServidor) {
+		this.dadosServidor = dadosServidor;
+	}
+
+
+	public ObjectOutputStream getOut() {
+		return out;
+	}
+
+
+	public void setOut(ObjectOutputStream out) {
+		this.out = out;
+	}
+
+
+	public ObjectInputStream getIn() {
+		return in;
+	}
+
+
+	public void setIn(ObjectInputStream in) {
+		this.in = in;
+	}
+
+
+	public String getUser() {
+		return user;
+	}
+
+
+	public void setUser(String user) {
+		this.user = user;
+	}
+
+
+	public String getLogin() {
+		return login;
+	}
+
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+
+	public String getMensagem() {
+		return mensagem;
+	}
+
+
+	public void setMensagem(String mensagem) {
+		this.mensagem = mensagem;
+	}
+
+
+	public Vista getVista() {
+		return vista;
+	}
+
+
+	public void setVista(Vista vista) {
+		this.vista = vista;
+	}
+
+
+	public String getMSG_TIPO_1() {
+		return MSG_TIPO_1;
+	}
+
+
+	public String getMSG_TIPO_2() {
+		return MSG_TIPO_2;
+	}
+
+
+	public String getMSG_TIPO_3() {
+		return MSG_TIPO_3;
+	}
+
+
+	public String getMSG_TIPO_4() {
+		return MSG_TIPO_4;
+	}
+	
+	
 
 }
