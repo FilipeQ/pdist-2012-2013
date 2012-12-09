@@ -32,14 +32,9 @@ public class Controlador implements ActionListener
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) 
-	{
+	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub
-		//System.out.println("Controller: acting on Model");
-		//System.out.println(modelo.getContador());
-		//modelo.incrementarValor();
 		
 	}
-	
 
 }

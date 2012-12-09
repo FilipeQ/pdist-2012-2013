@@ -112,21 +112,16 @@ public class Vista extends JFrame implements Observer
 
 	@Override
 	public void update(Observable arg0, Object arg1) 
-	{
-		// TODO Auto-generated method stub
-		//tb.setText("" + modelo.getContador());
-		//System.out.println(((Integer)arg1).intValue());
-		//tbUsersActivos.setText("" + ((Integer)arg1).intValue());
-		
+	{	
 		Dados d=(Dados)arg1;
 		String texto="";
 		System.out.println("Tamanho:"+d.getUsersActivos().size());
 		for(int i=0;i<d.getUsersActivos().size();i++)
 		{
 			//System.out.println("userActivos: "+d.getUsersActivos().get(i).toString());
-			//if(!d.getLogin().equalsIgnoreCase(d.getUsersActivos().get(i).toString()))
+			//if(!modelo.getUser().equalsIgnoreCase(d.getUsersActivos().get(i).toString()))
 				texto+=""+d.getUsersActivos().get(i).toString()+"\n";
-				System.out.println("Texto:"+texto);
+				//System.out.println("Texto:"+texto);
 			
 		}
 		tbUsersActivos.setText(""+texto);
@@ -135,6 +130,8 @@ public class Vista extends JFrame implements Observer
 
 
 
+	//-----------------Getters & Setters------------------------
+	
 	public <T extends ActionListener,S>void setControlador(T controlador,S texto) 
 	{
 		for(int i=0;i<bt.size();i++)
@@ -146,6 +143,91 @@ public class Vista extends JFrame implements Observer
 		}
 	}
 
+	public JTextField getTbParesActivos() {
+		return tbParesActivos;
+	}
+
+	public void setTbParesActivos(JTextField tbParesActivos) {
+		this.tbParesActivos = tbParesActivos;
+	}
+
+	public JTextField getTbConvidar() {
+		return tbConvidar;
+	}
+
+	public void setTbConvidar(JTextField tbConvidar) {
+		this.tbConvidar = tbConvidar;
+	}
+
+	public JTextArea getTbUsersActivos() {
+		return tbUsersActivos;
+	}
+
+	public void setTbUsersActivos(JTextArea tbUsersActivos) {
+		this.tbUsersActivos = tbUsersActivos;
+	}
+
+	public List<JButton> getBt() {
+		return bt;
+	}
+
+	public void setBt(List<JButton> bt) {
+		this.bt = bt;
+	}
+
+	public Container getC() {
+		return c;
+	}
+
+	public void setC(Container c) {
+		this.c = c;
+	}
+
+	public Modelo getModelo() {
+		return modelo;
+	}
+
+	public void setModelo(Modelo modelo) {
+		this.modelo = modelo;
+	}
+
+	public Box getbLateral() {
+		return bLateral;
+	}
+
+	public void setbLateral(Box bLateral) {
+		this.bLateral = bLateral;
+	}
+
+	public Box getbBaixo() {
+		return bBaixo;
+	}
+
+	public void setbBaixo(Box bBaixo) {
+		this.bBaixo = bBaixo;
+	}
+
+	public JPanel getpJogo() {
+		return pJogo;
+	}
+
+	public void setpJogo(JPanel pJogo) {
+		this.pJogo = pJogo;
+	}
+
+	public List<JButton> getJogo() {
+		return jogo;
+	}
+
+	public void setJogo(List<JButton> jogo) {
+		this.jogo = jogo;
+	}
+
+	
+	
+	
+	
+	
 	
 }
 
