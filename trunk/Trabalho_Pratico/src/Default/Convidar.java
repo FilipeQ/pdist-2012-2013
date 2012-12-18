@@ -26,6 +26,7 @@ public class Convidar extends Controlador
 		
 		try {
 			modelo.getOut().writeObject(nome);
+			modelo.setSimbolo("X");
 		} catch (IOException e1) {System.out.println(e1);}
 		
 	}

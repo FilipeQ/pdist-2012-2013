@@ -30,6 +30,7 @@ public class Modelo extends Observable implements Runnable
 	private String mensagem;
 	private Jogo jogo;
 	private Vista vista;
+	private String simbolo;
 	
 	
 	public Modelo(Socket s,Vista vista) throws IOException
@@ -39,6 +40,7 @@ public class Modelo extends Observable implements Runnable
 		this.vista=vista;
 		dadosCliente=new Dados();
 		jogo = new Jogo();
+		
 	}
 	
 	
@@ -135,6 +137,7 @@ public class Modelo extends Observable implements Runnable
 					}else if(mensagem.equals(MSG_TIPO_5))
 					{
 						JOptionPane.showMessageDialog(vista, "Jogo Aceite");
+						simbolo="O";
 						enableButtons(true);
 						jogar();
 					}else if(mensagem.equals(MSG_TIPO_6))
@@ -154,13 +157,13 @@ public class Modelo extends Observable implements Runnable
 
 	public void jogar()
 	{
-		
+		System.out.println("ta a jogar");
 		while(true)
 		{
 			try {
 				jogo=(Jogo)in.readObject();
-				
-				//actualiza vista
+				preencheBotoes();
+				actualizaVista();
 				
 				if(verificaFimjogo()==-1)//caso termine o jogo volta po ciclo de espera acima
 					break;
@@ -173,6 +176,24 @@ public class Modelo extends Observable implements Runnable
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void preencheBotoes()
+	{
+		int cont=-1;
+		for(int i=0;i<3;i++)
+		{
+			for(int j=0;j<3;j++)
+			{
+				cont++;
+				if(jogo.getPosicao(i, j)==1)
+				{
+					vista.getJogo().get(cont).setText("X");
+				}else if(jogo.getPosicao(i, j)==2){
+					vista.getJogo().get(cont).setText("O");
+				}
 			}
 		}
 	}
@@ -205,6 +226,7 @@ public class Modelo extends Observable implements Runnable
 	}
 	//----------------Getters and Setters------------------
 
+	
 	public Dados getDadosCliente() {
 		return dadosCliente;
 	}
@@ -302,6 +324,38 @@ public class Modelo extends Observable implements Runnable
 
 	public String getMSG_TIPO_4() {
 		return MSG_TIPO_4;
+	}
+
+
+	/**
+	 * @return the simbolo
+	 */
+	public String getSimbolo() {
+		return simbolo;
+	}
+
+
+	/**
+	 * @param simbolo the simbolo to set
+	 */
+	public void setSimbolo(String simbolo) {
+		this.simbolo = simbolo;
+	}
+
+
+	/**
+	 * @return the jogo
+	 */
+	public Jogo getJogo() {
+		return jogo;
+	}
+
+
+	/**
+	 * @param jogo the jogo to set
+	 */
+	public void setJogo(Jogo jogo) {
+		this.jogo = jogo;
 	}
 	
 	
