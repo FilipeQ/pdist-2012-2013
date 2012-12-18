@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.List;
 import java.util.Observable;
 
+import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 import Servidor.Dados;
@@ -38,6 +40,21 @@ public class Modelo extends Observable implements Runnable
 	}
 	
 	
+	public void enableButtons(boolean bool)
+	{
+		for(int i=0;i<vista.getJogo().size();i++)
+		{
+			vista.getJogo().get(i).setEnabled(bool);
+		}
+		notifyObservers(dadosCliente);	
+	}
+	
+	public void actualizaEstadoButtons(List<JButton> jogo)
+	{
+		vista.setJogo(jogo);
+		notifyObservers(dadosCliente);
+	}
+	
 	public void efectuarLogin()
 	{
 		try
@@ -62,6 +79,7 @@ public class Modelo extends Observable implements Runnable
 	@Override
 	public void run() 
 	{
+		enableButtons(false);
 		efectuarLogin();
 		vista.setTitle(user);
 		vista.setUser(user);
