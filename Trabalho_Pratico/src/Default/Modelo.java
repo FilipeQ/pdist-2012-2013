@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
 import Servidor.Dados;
+import Servidor.Jogo;
 
 public class Modelo extends Observable implements Runnable
 {
@@ -27,7 +28,7 @@ public class Modelo extends Observable implements Runnable
 	private String user;
 	private String login;
 	private String mensagem;
-	
+	private Jogo jogo;
 	private Vista vista;
 	
 	
@@ -37,6 +38,7 @@ public class Modelo extends Observable implements Runnable
 		in = new ObjectInputStream(s.getInputStream());
 		this.vista=vista;
 		dadosCliente=new Dados();
+		jogo = new Jogo();
 	}
 	
 	
@@ -44,7 +46,16 @@ public class Modelo extends Observable implements Runnable
 	{
 		for(int i=0;i<vista.getJogo().size();i++)
 		{
-			vista.getJogo().get(i).setEnabled(bool);
+			vista.getJogo().get(i).setEnabled(bool);		
+		}
+		
+		for(int i=0;i<vista.getBt().size();i++)
+		{
+			if(vista.getBt().get(i).getText().equalsIgnoreCase("convidar"))
+			{
+				vista.getBt().get(i).setEnabled(!bool);
+				vista.getTbConvidar().setText("");
+			}
 		}
 		notifyObservers(dadosCliente);	
 	}
@@ -98,8 +109,9 @@ public class Modelo extends Observable implements Runnable
 					{
 						dadosCliente=(Dados)in.readObject();
 						System.out.println(dadosCliente);
-						setChanged();
-						notifyObservers(dadosCliente);
+						//setChanged();
+						//notifyObservers(dadosCliente);
+						actualizaVista();
 						continue;
 					}
 					else if(mensagem.equals(MSG_TIPO_4))
@@ -124,6 +136,7 @@ public class Modelo extends Observable implements Runnable
 					{
 						JOptionPane.showMessageDialog(vista, "Jogo Aceite");
 						enableButtons(true);
+						jogar();
 					}else if(mensagem.equals(MSG_TIPO_6))
 					{
 						JOptionPane.showMessageDialog(vista, "Jogo Regeitado");
@@ -139,7 +152,57 @@ public class Modelo extends Observable implements Runnable
 		
 	}
 
+	public void jogar()
+	{
+		
+		while(true)
+		{
+			try {
+				jogo=(Jogo)in.readObject();
+				
+				//actualiza vista
+				
+				if(verificaFimjogo()==-1)//caso termine o jogo volta po ciclo de espera acima
+					break;
+				
+				
+				
+			} catch (ClassNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+	}
 	
+	public int verificaFimjogo(){
+		
+		if(jogo.getFimJogo()!=-1)
+		{
+			if(jogo.getFimJogo()==1)
+			{
+				//acaba
+				
+			}
+			else if(jogo.getFimJogo()==2)
+			{
+				
+			}
+			else if(jogo.getFimJogo()==3)
+			{
+				
+			}
+			return 0;
+		}
+		return -1;
+	}
+	
+	public void actualizaVista(){
+		setChanged();
+		notifyObservers(dadosCliente);
+	}
 	//----------------Getters and Setters------------------
 
 	public Dados getDadosCliente() {
