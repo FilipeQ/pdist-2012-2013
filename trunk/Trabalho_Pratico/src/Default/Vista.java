@@ -113,6 +113,7 @@ public class Vista extends JFrame implements Observer
 	@Override
 	public void update(Observable arg0, Object arg1) 
 	{	
+		invalidate();
 		Dados d=(Dados)arg1;
 		String texto="";
 		System.out.println("Tamanho:"+d.getUsersActivos().size());
