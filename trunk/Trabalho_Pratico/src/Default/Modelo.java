@@ -16,6 +16,8 @@ public class Modelo extends Observable implements Runnable
 	final String MSG_TIPO_2="ActParesActivos";
 	final String MSG_TIPO_3="Jogar";
 	final String MSG_TIPO_4="Convidar";
+	final String MSG_TIPO_5="JogoAceite";
+	final String MSG_TIPO_6="JogoRegeitado";
 	
 	private Dados dadosCliente,dadosServidor;
 	private ObjectOutputStream out;
@@ -62,6 +64,7 @@ public class Modelo extends Observable implements Runnable
 	{
 		efectuarLogin();
 		vista.setTitle(user);
+		vista.setUser(user);
 		vista.setVisible(true);
 		
 		System.out.println("Vou entrar no while");
@@ -69,6 +72,7 @@ public class Modelo extends Observable implements Runnable
 		{
 			while(true)
 			{
+					System.out.println("espera cliente");
 					mensagem=(String)in.readObject();
 					
 					
@@ -80,8 +84,9 @@ public class Modelo extends Observable implements Runnable
 						notifyObservers(dadosCliente);
 						continue;
 					}
-					else
+					else if(mensagem.equals(MSG_TIPO_4))
 					{
+						
 						System.out.println("Vou mostrar JOptionpane");
 						int resposta;
 						mensagem=(String)in.readObject();
@@ -94,7 +99,15 @@ public class Modelo extends Observable implements Runnable
 						out.writeObject(mensagem);
 						out.flush();
 						out.reset();
+					}else if(mensagem.equals(MSG_TIPO_5))
+					{
+						JOptionPane.showMessageDialog(vista, "Jogo Aceite");
+					}else if(mensagem.equals(MSG_TIPO_6))
+					{
+						JOptionPane.showMessageDialog(vista, "Jogo Regeitado");
 					}
+					
+					
 
 					
 			}

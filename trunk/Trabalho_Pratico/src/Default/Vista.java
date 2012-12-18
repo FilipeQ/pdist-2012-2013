@@ -31,7 +31,7 @@ public class Vista extends JFrame implements Observer
 	List<JButton> bt;
 	Container c;
 	Modelo modelo;
-
+	String user;
 	Box bLateral;
 	Box bBaixo;
 	JPanel pJogo;
@@ -118,8 +118,8 @@ public class Vista extends JFrame implements Observer
 		System.out.println("Tamanho:"+d.getUsersActivos().size());
 		for(int i=0;i<d.getUsersActivos().size();i++)
 		{
-			//System.out.println("userActivos: "+d.getUsersActivos().get(i).toString());
-			//if(!modelo.getUser().equalsIgnoreCase(d.getUsersActivos().get(i).toString()))
+			System.out.println("user: "+user);
+			if(!user.equalsIgnoreCase(d.getUsersActivos().get(i).toString()))
 				texto+=""+d.getUsersActivos().get(i).toString()+"\n";
 				//System.out.println("Texto:"+texto);
 			
@@ -143,6 +143,8 @@ public class Vista extends JFrame implements Observer
 		}
 	}
 
+	
+	
 	public JTextField getTbParesActivos() {
 		return tbParesActivos;
 	}
@@ -221,6 +223,20 @@ public class Vista extends JFrame implements Observer
 
 	public void setJogo(List<JButton> jogo) {
 		this.jogo = jogo;
+	}
+
+	/**
+	 * @return the user
+	 */
+	public String getUser() {
+		return user;
+	}
+
+	/**
+	 * @param user the user to set
+	 */
+	public void setUser(String user) {
+		this.user = user;
 	}
 
 	
