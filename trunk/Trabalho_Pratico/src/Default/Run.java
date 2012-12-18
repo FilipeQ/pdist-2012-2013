@@ -31,23 +31,15 @@ public class Run
 			t1.start();
 			//vista.setVisible(true);
 			Convidar con =new Convidar(modelo,vista);
+			Jogar jog= new Jogar(modelo,vista);
+			
+			vista.setJogo(jog);//adicionar listeners aos botoes do jogo
+			
 			vista.setControlador(con, "Convidar");
 		} 
 		catch (UnknownHostException e){System.out.println(e);} 
 		catch (IOException e){System.out.println(e);}
 
-
-		
-		//Controlador controlador = new Controlador(modelo,vista);
-		//controlador.setModelo(modelo);
-		//controlador.setVista(vista);
-		//controlador.initVal(0);
-		
-		/*Incrementar inc = new Incrementar(modelo,vista);
-		Decrementar dec = new Decrementar(modelo,vista);
-		
-		vista.setControlador(inc,"Convidar");
-		vista.setControlador(dec,"Decrementar");*/
 	}
 }
 
