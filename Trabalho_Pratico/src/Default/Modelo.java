@@ -117,9 +117,13 @@ public class Modelo extends Observable implements Runnable
 						out.writeObject(mensagem);
 						out.flush();
 						out.reset();
+						if(mensagem.equals("0"))
+							enableButtons(true);
+						
 					}else if(mensagem.equals(MSG_TIPO_5))
 					{
 						JOptionPane.showMessageDialog(vista, "Jogo Aceite");
+						enableButtons(true);
 					}else if(mensagem.equals(MSG_TIPO_6))
 					{
 						JOptionPane.showMessageDialog(vista, "Jogo Regeitado");

@@ -133,6 +133,14 @@ public class Vista extends JFrame implements Observer
 
 	//-----------------Getters & Setters------------------------
 	
+	public void setJogo(Jogar j)
+	{
+		for(int i=0;i<jogo.size();i++)
+		{
+			jogo.get(i).addActionListener(j);
+		}
+	}
+	
 	public <T extends ActionListener,S>void setControlador(T controlador,S texto) 
 	{
 		for(int i=0;i<bt.size();i++)
