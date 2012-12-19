@@ -39,7 +39,7 @@ public class Modelo extends Observable implements Runnable
 		in = new ObjectInputStream(s.getInputStream());
 		this.vista=vista;
 		dadosCliente=new Dados();
-		jogo = new Jogo();
+		jogo = new Jogo(dadosCliente);
 		
 	}
 	
@@ -51,15 +51,19 @@ public class Modelo extends Observable implements Runnable
 			vista.getJogo().get(i).setEnabled(bool);		
 		}
 		
+		notifyObservers(dadosCliente);	
+	}
+	
+	public void enableConvidar(boolean bool){
 		for(int i=0;i<vista.getBt().size();i++)
 		{
 			if(vista.getBt().get(i).getText().equalsIgnoreCase("convidar"))
 			{
-				vista.getBt().get(i).setEnabled(!bool);
+				vista.getBt().get(i).setEnabled(bool);
 				vista.getTbConvidar().setText("");
 			}
 		}
-		notifyObservers(dadosCliente);	
+		notifyObservers(dadosCliente);
 	}
 	
 	public void actualizaEstadoButtons(List<JButton> jogo)
@@ -125,20 +129,29 @@ public class Modelo extends Observable implements Runnable
 						resposta=JOptionPane.showConfirmDialog(vista, "Deseja jogar com "+mensagem+"?");
 						System.out.println("Resposta:"+resposta);
 						
-						//mensagem=""+resposta;
 						mensagem=new String(""+resposta);
 						System.out.println("Mensagem Resp:"+mensagem);
 						out.writeObject(mensagem);
 						out.flush();
 						out.reset();
 						if(mensagem.equals("0"))
+						{
 							enableButtons(true);
+							enableConvidar(false);
+							simbolo="O";
+							preencheBotoes();//inicializa botoes com ""
+							actualizaVista();
+							enableButtons(false);//coloca botoes bloqueados pk n e a vez dele jogar
+							jogar();
+						}
 						
 					}else if(mensagem.equals(MSG_TIPO_5))
 					{
 						JOptionPane.showMessageDialog(vista, "Jogo Aceite");
-						simbolo="O";
 						enableButtons(true);
+						enableConvidar(false);
+						preencheBotoes();//inicializa botoes com ""
+						actualizaVista();
 						jogar();
 					}else if(mensagem.equals(MSG_TIPO_6))
 					{
@@ -161,13 +174,20 @@ public class Modelo extends Observable implements Runnable
 		while(true)
 		{
 			try {
+				System.out.println("espera jogada...");
 				jogo=(Jogo)in.readObject();
+				System.out.println("ToString: "+jogo.getD().toString());
+				dadosCliente=jogo.getD();
+				enableButtons(true);
 				preencheBotoes();
 				actualizaVista();
 				
-				if(verificaFimjogo()==-1)//caso termine o jogo volta po ciclo de espera acima
+				if(verificaFimjogo()==0)//caso termine o jogo volta po ciclo de espera acima
+				{
+					enableButtons(false);
+					enableConvidar(true);
 					break;
-				
+				}
 				
 				
 			} catch (ClassNotFoundException e) {
@@ -193,7 +213,8 @@ public class Modelo extends Observable implements Runnable
 					vista.getJogo().get(cont).setText("X");
 				}else if(jogo.getPosicao(i, j)==2){
 					vista.getJogo().get(cont).setText("O");
-				}
+				}else if(jogo.getPosicao(i, j)==-1)
+					vista.getJogo().get(cont).setText("");
 			}
 		}
 	}
@@ -202,19 +223,28 @@ public class Modelo extends Observable implements Runnable
 		
 		if(jogo.getFimJogo()!=-1)
 		{
-			if(jogo.getFimJogo()==1)
+			if(jogo.getFimJogo()==1 && simbolo.equalsIgnoreCase("X"))
 			{
-				//acaba
+				JOptionPane.showMessageDialog(vista, "Ganhou o jogo");
 				
 			}
-			else if(jogo.getFimJogo()==2)
+			else if(jogo.getFimJogo()==1 && simbolo.equalsIgnoreCase("O"))
 			{
-				
+				JOptionPane.showMessageDialog(vista, "Perdeu o jogo");
+			}
+			else if(jogo.getFimJogo()==2 && simbolo.equalsIgnoreCase("X"))
+			{
+				JOptionPane.showMessageDialog(vista, "Perdeu o jogo");
+			}
+			else if(jogo.getFimJogo()==2 && simbolo.equalsIgnoreCase("O"))
+			{
+				JOptionPane.showMessageDialog(vista, "Ganhou o jogo");
 			}
 			else if(jogo.getFimJogo()==3)
 			{
-				
+				JOptionPane.showMessageDialog(vista, "Empatou o jogo");
 			}
+			jogo.colocaMatrizInicializada();
 			return 0;
 		}
 		return -1;
