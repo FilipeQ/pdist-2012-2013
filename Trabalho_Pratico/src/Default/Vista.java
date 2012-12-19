@@ -22,11 +22,12 @@ import Servidor.Dados;
 
 public class Vista extends JFrame implements Observer
 {
+	JTextArea tbParesActivos;
 	/**
 	 * 
 	 */
 	//Controlador controlador;
-	JTextField tbParesActivos,tbConvidar;
+	JTextField tbConvidar;
 	JTextArea tbUsersActivos;
 	List<JButton> bt;
 	Container c;
@@ -58,8 +59,11 @@ public class Vista extends JFrame implements Observer
 		}
 		
 		tbUsersActivos = new JTextArea("0");
+		tbUsersActivos.setEnabled(false);
 		tbConvidar = new JTextField("");
-		tbParesActivos=new JTextField("fdgdfgdshs");
+		
+		tbParesActivos=new JTextArea("");
+		tbParesActivos.setEnabled(false);
 		bt=new ArrayList<>();
 		
 		
@@ -126,6 +130,17 @@ public class Vista extends JFrame implements Observer
 			
 		}
 		tbUsersActivos.setText(""+texto);
+		texto=new String("");
+		
+		for(int i=0;i<d.getParesActivos().size();i++)
+		{
+			//System.out.println("user: "+user);
+			//if(!user.equalsIgnoreCase(d.getUsersActivos().get(i).toString()))
+				texto+=""+d.getParesActivos().get(i).toString()+"\n";
+				//System.out.println("Texto:"+texto);
+			
+		}
+		tbParesActivos.setText(""+texto);
 		
 	}
 
@@ -154,11 +169,11 @@ public class Vista extends JFrame implements Observer
 
 	
 	
-	public JTextField getTbParesActivos() {
+	public JTextArea getTbParesActivos() {
 		return tbParesActivos;
 	}
 
-	public void setTbParesActivos(JTextField tbParesActivos) {
+	public void setTbParesActivos(JTextArea tbParesActivos) {
 		this.tbParesActivos = tbParesActivos;
 	}
 

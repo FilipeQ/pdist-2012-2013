@@ -11,6 +11,7 @@ public class Jogar extends Controlador
 		super(modelo, vista);
 	}
 	
+	
 	public void actionPerformed(ActionEvent e) 
 	{
 		for(int i=0;i<vista.getJogo().size();i++)
@@ -19,6 +20,9 @@ public class Jogar extends Controlador
 			{
 				vista.getJogo().get(i).setText(modelo.getSimbolo());
 				modelo.getJogo().setPosicao(devolveLinha(i), devolveColuna( i), devolveSimbolo(modelo.getSimbolo()));//coloca jogada na matriz
+				modelo.enableButtons(false);
+				//modelo.actualizaVista();
+				//vista.getJogo().get(i).setEnabled(false);
 				try {
 					modelo.getOut().writeObject(modelo.getJogo());
 				} catch (IOException e1) {
